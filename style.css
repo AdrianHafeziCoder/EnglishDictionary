@@ -1,0 +1,386 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent !important;
+  scroll-behavior: smooth;
+}
+*:not(i) {
+  font-family: "Poppins", sans-serif;
+}
+body {
+  background-color: #ae9cff;
+}
+.container {
+  background-color: #ffffff;
+  width: 90vmin;
+  margin: 50px auto;
+  padding: 80px 50px;
+  border-radius: 10px;
+  box-shadow: 0 20px 40px rgba(38, 33, 61, 0.2);
+}
+.search-box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.search-box input {
+  padding: 5px;
+  width: 70%;
+  border: none;
+  outline: none;
+  border-bottom: 3px solid #ae9cff;
+  font-size: 16px;
+}
+.search-box button {
+  padding: 15px 0;
+  width: 25%;
+  background-color: #866bfc;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.search-box button:hover {
+  background-color: #866bfcb7;
+}
+.result {
+  position: relative;
+}
+.result h3 {
+  font-size: 30px;
+  color: #1f194c;
+}
+.result .word {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 80px;
+}
+.result button {
+  background-color: transparent;
+  color: #ae9cff;
+  border: none;
+  outline: none;
+  font-size: 18px;
+}
+.result .details {
+  display: flex;
+  gap: 10px;
+  color: #b3b6d4;
+  margin: 5px 0 20px 0;
+  font-size: 14px;
+}
+.word-meaning {
+  color: #575a7b;
+}
+.word-example {
+  color: #575a7b;
+  font-style: italic;
+  border-left: 5px solid #ae9cff;
+  padding-left: 20px;
+  margin-top: 30px;
+}
+.error {
+  margin-top: 80px;
+  text-align: center;
+}
+/* ========== ERROR TOAST ========== */
+.error-toast {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  padding: 0.8rem 1.2rem 0.8rem 1.5rem;
+  border-radius: 60px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 10px 30px -8px rgba(239, 68, 68, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Show state  */
+.error-toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  animation: toastPop 0.4s ease-out;
+}
+
+/* Hide state  */
+.error-toast.hide {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-80px);
+}
+
+.error-toast.show i:first-child {
+  font-size: 1rem;
+  animation: errorShake 0.5s ease;
+}
+
+.error-toast span {
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+}
+
+/* Animations */
+@keyframes errorShake {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(12deg);
+  }
+  75% {
+    transform: rotate(-12deg);
+  }
+}
+
+@keyframes toastPop {
+  0% {
+    transform: translateX(-50%) scale(0.85);
+    opacity: 0;
+  }
+  70% {
+    transform: translateX(-50%) scale(1.02);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+/* ========== RESPONSIVE ========== */
+
+/* Laptop (1025px - 1280px) */
+@media (max-width: 1280px) and (min-width: 1025px) {
+  .container {
+    width: 80vmin;
+    padding: 70px 45px;
+  }
+
+  .result h3 {
+    font-size: 28px;
+  }
+}
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) and (min-width: 768px) {
+  .container {
+    width: 80vmin;
+    padding: 60px 40px;
+  }
+
+  .result h3 {
+    font-size: 26px;
+  }
+
+  .search-box input {
+    font-size: 15px;
+  }
+
+  .search-box button {
+    padding: 12px 0;
+    font-size: 14px;
+  }
+
+  .result .word {
+    margin-top: 60px;
+  }
+
+  .result .details {
+    font-size: 13px;
+  }
+
+  .word-meaning {
+    font-size: 15px;
+  }
+
+  .word-example {
+    font-size: 15px;
+    padding-left: 18px;
+    margin-top: 25px;
+  }
+}
+
+/* Mobile (480px - 768px) */
+@media (max-width: 768px) {
+  body {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 500px;
+    position: static;
+    transform: none;
+    padding: 40px 25px;
+    margin: 20px auto;
+  }
+
+  .search-box {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 12px 10px;
+    font-size: 16px;
+  }
+
+  .search-box button {
+    width: 100%;
+    padding: 14px 0;
+    font-size: 16px;
+  }
+
+  .result .word {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 40px;
+  }
+
+  .result h3 {
+    font-size: 24px;
+  }
+
+  .result button {
+    font-size: 20px;
+  }
+
+  .result .details {
+    flex-wrap: wrap;
+    gap: 5px;
+    font-size: 13px;
+  }
+
+  .word-meaning {
+    font-size: 14px;
+  }
+
+  .word-example {
+    padding-left: 15px;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+
+  /* Error Toast */
+  .error-toast {
+    top: 20px;
+    padding: 0.6rem 1rem;
+    font-size: 0.75rem;
+    border-radius: 40px;
+    max-width: 90%;
+  }
+
+  .error-toast span {
+    font-size: 0.75rem;
+  }
+}
+
+/* Small Mobile (up to 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 30px 18px;
+    max-width: 100%;
+  }
+
+  .search-box input {
+    font-size: 14px;
+    padding: 10px 8px;
+  }
+
+  .search-box button {
+    font-size: 14px;
+    padding: 12px 0;
+  }
+
+  .result h3 {
+    font-size: 20px;
+  }
+
+  .result .word {
+    margin-top: 30px;
+  }
+
+  .result .details {
+    font-size: 12px;
+  }
+
+  .word-meaning {
+    font-size: 13px;
+  }
+
+  .word-example {
+    font-size: 13px;
+    padding-left: 12px;
+  }
+
+  .error-toast {
+    top: 15px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.65rem;
+    gap: 0.5rem;
+    border-radius: 30px;
+  }
+
+  .error-toast span {
+    font-size: 0.65rem;
+  }
+}
+
+/* Landscape Mode for Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .container {
+    padding: 25px 20px;
+    max-width: 450px;
+  }
+
+  .result .word {
+    margin-top: 25px;
+  }
+
+  .result h3 {
+    font-size: 22px;
+  }
+
+  .search-box {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .search-box input {
+    width: 65%;
+    font-size: 14px;
+  }
+
+  .search-box button {
+    width: 30%;
+    padding: 12px 0;
+    font-size: 14px;
+  }
+
+  .error-toast {
+    top: 10px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.65rem;
+  }
+}
